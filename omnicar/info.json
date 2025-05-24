@@ -1,0 +1,9 @@
+{
+  "name": "omnicar",
+  "version": "0.1.0",
+  "title": "Omni Car",
+  "author": "Happy1speed",
+  "factorio_version": "2.0",
+  "dependencies": ["base >= 2.0"],
+  "description": "adds a better car"
+}
