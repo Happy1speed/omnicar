@@ -1,6 +1,6 @@
 local omniCar = table.deepcopy(data.raw.car["car"])
 omniCar.name = "omni_car"
-omniCar.icon = "__omnicar__/graphics/icons/omniCar-icon.png"
+omniCar.icon = "__happys_omnicar__/graphics/icons/omniCar-icon.png"
 omniCar.icon_size = 128
 omniCar.max_health = 600
 omniCar.selection_box = {{-0.9,-0.9}, {0.9,0.9}}
@@ -266,13 +266,13 @@ omniCar.turret_animation = {
 
 local omniCarItem = table.deepcopy(data.raw["item-with-entity-data"]["car"])
 omniCarItem.name = "omnicar-item"
-omniCarItem.icon = "__omnicar__/graphics/icons/omnicar.png"
+omniCarItem.icon = "__happys_omnicar__/graphics/icons/omnicar.png"
 omniCarItem.icon_size = 128
 omniCarItem.place_result = "omni_car"
 
 local omniCarRecipe = table.deepcopy(data.raw.recipe["car"])
 omniCarRecipe.enabled = false
-omniCarRecipe.icon = "__omnicar__/graphics/icons/omnicar.png"
+omniCarRecipe.icon = "__happys_omnicar__/graphics/icons/omnicar.png"
 omniCarRecipe.name = "omnicar-recipe"
 omniCarRecipe.icon_size = 128
 omniCarRecipe.energy_required = 16
@@ -295,7 +295,7 @@ data:extend{
             type = "unlock-recipe"
             }
         },
-        icon = "__omnicar__/graphics/icons/omniCar-icon.png",
+        icon = "__happys_omnicar__/graphics/icons/omniCar-icon.png",
         icon_size = 128,
         name = "omniCar",
         
