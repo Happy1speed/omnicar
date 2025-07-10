@@ -2,21 +2,66 @@ local omniCar = table.deepcopy(data.raw.car["car"])
 omniCar.name = "omni_car"
 omniCar.icon = "__happys_omnicar__/graphics/icons/omniCar-icon.png"
 omniCar.icon_size = 128
-omniCar.max_health = 600
+omniCar.max_health = settings.startup["happys-omni-car-health"].value or 600
 omniCar.selection_box = {{-0.9,-0.9}, {0.9,0.9}}
 omniCar.drawing_box = {{-0.9,-0.9}, {0.9,0.9}}
 omniCar.sticker_box = {{-0.5,-0.5}, {0.5,0.5}}
 omniCar.selection_priority = 100
-omniCar.inventory_size = 80
-omniCar.rotation_speed = 0.013
+omniCar.inventory_size = settings.startup["happys-omni-car-inventory-size"].value or 80
+omniCar.rotation_speed = settings.startup["happys-omni-car-turning-speed"].value or 0.013
 omniCar.rotation_snap_angle = 0.015
-omniCar.weight = 700
-omniCar.immune_to_tree_impacts = false
-omniCar.has_belt_immunity = true
-omniCar.effectivity = 0.7
-omniCar.braking_power = "900kW"
+omniCar.weight = settings.startup["happys-omni-car-weight"].value or 700
+omniCar.immune_to_tree_impacts = settings.startup["happys-omni-car-immune-to-tree-impacts"].value or false
+omniCar.has_belt_immunity = settings.startup["happys-omni-car-belt-immune"].value or true
+omniCar.effectivity = settings.startup["happys-omni-car-speed"].value or 0.6
+omniCar.braking_power = tostring(settings.startup["happys-omni-car-break-strength"].value) .. "kW" or "400kW"
 omniCar.tank_driving = true
 omniCar.equipment_grid = "medium-equipment-grid"
+omniCar.turret_rotation_speed = settings.startup["happys-omni-car-turret-rotation-speed"].value or 0.8
+
+
+
+local omniCarGuns = {}
+
+if settings.startup["happys-omni-car-has-machine-gun"].value then
+	table.insert(omniCarGuns, "vehicle-machine-gun")
+end
+
+if settings.startup["happys-omni-car-has-shotgun"].value then
+	table.insert(omniCarGuns, "vehicle-shotgun")
+end
+
+local tight_shotgun = table.deepcopy(data.raw["gun"]["combat-shotgun"])
+tight_shotgun.name = "vehicle-shotgun"
+tight_shotgun.icon = data.raw["gun"]["combat-shotgun"].icon
+
+tight_shotgun.attack_parameters = {
+      type = "projectile",
+      ammo_category = "shotgun-shell",
+      cooldown = 20,
+      movement_slow_down_factor = 0.5,
+      damage_modifier = 1.2,
+      projectile_creation_distance = 0.125,
+      range = 18,
+	  sound = {
+		  switch_vibration_data =
+		  {
+			filename = "__base__/sound/fight/pump-shotgun.bnvib",
+		  },
+		  game_controller_vibration_data =
+		  {
+			duration = 100,
+			high_frequency_vibration_intensity = 0.6,
+		  },
+		  variations = sound_variations("__base__/sound/fight/pump-shotgun", 5, 0.37),
+		  priority = 64
+		},
+    }
+
+data:extend{ tight_shotgun }
+
+--settings.startup["happys-omni-car-fuel-efficency"].value or 
+
 omniCar.burner = {
   effectivity = 1.0,
   fuel_category = "chemical",
@@ -55,7 +100,7 @@ omniCar.resistances =
         percent = 40
       }
     }
-omniCar.guns = {"tank-machine-gun"}
+omniCar.guns = omniCarGuns
 flags = {"placeable-neutral", "player-creation", "placeable-off-grid", "not-flammable"}
 omniCar.water_reflection = car_reflection(1.0)
 omniCar.render_layer = "object"
